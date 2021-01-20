@@ -1,0 +1,27 @@
+{
+  "name": "graphql-prisma-fullstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aayushmau5/graphql-prisma-fullstack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aayushmau5/graphql-prisma-fullstack/issues"
+  },
+  "homepage": "https://github.com/aayushmau5/graphql-prisma-fullstack#readme",
+  "dependencies": {
+    "apollo-server": "^2.19.2",
+    "graphql": "^15.4.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.15.0"
+  }
+}
