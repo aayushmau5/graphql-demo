@@ -1,17 +1,20 @@
 const { ApolloServer, gql } = require("apollo-server");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
-const typeDefs = gql`
-  type Query {
-    hello: String!
-  }
-`;
+const typeDefs = require("./schemas/Query");
+const resolvers = require("./resolvers/Resolvers");
 
-const resolvers = {
-  Query: {
-    hello: () => "hello, world",
-  },
-};
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const connection = mongoose.connection;
+connection.on(
+  "error",
+  console.error.bind(console, "Error occured connecting to the database")
+);
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
