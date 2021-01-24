@@ -7,10 +7,24 @@ const typeDefs = gql`
     password: String!
   }
 
+  input AddBlog {
+    title: String!
+    post: String!
+    author: ID!
+  }
+
+  type Blog {
+    _id: ID!
+    title: String!
+    post: String!
+    author: User!
+  }
+
   type User {
     _id: ID!
     username: String!
     email: String!
+    blogs: [Blog]!
   }
 
   type Query {
@@ -20,6 +34,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(user: AddUser!): User
+    addBlog(blog: AddBlog!): Blog
   }
 `;
 
