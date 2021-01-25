@@ -1,11 +1,18 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-export async function users() {
+exports.users = async function () {
   const allUsers = await User.find();
   return allUsers;
-}
+};
 
-export async function addUser(_, args) {
+exports.user = async function (_, args) {
+  const { id } = args;
+  const user = await User.find({ _id: id });
+  return user[0];
+};
+
+exports.signup = async function (_, args) {
   const { username, email, password } = args.user;
   const user = new User({
     username,
@@ -13,5 +20,18 @@ export async function addUser(_, args) {
     password,
   });
   const savedUser = await user.save();
-  return savedUser;
-}
+  return {
+    user: savedUser,
+    token: "hellothere",
+  };
+};
+
+exports.login = async function (_, args) {
+  const { email, password } = args.user;
+  const user = await user.find({ email: email });
+  console.log(user);
+  return {
+    user: user[0],
+    token: "hellothere",
+  };
+};
