@@ -48,11 +48,11 @@ const typeDefs = gql`
     user(id: ID!): User
     blogs: [Blog]!
     blog(id: ID!): Blog
+    login(user: Login!): Token
   }
 
   type Mutation {
     signup(user: Signup!): Token
-    login(user: Login!): Token
     addBlog(blog: AddBlog!): Blog
     deleteBlog(id: ID!): Blog
     updateBlog(blog: UpdateBlog!): Blog

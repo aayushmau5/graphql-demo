@@ -12,10 +12,10 @@ module.exports = {
     user,
     blogs,
     blog,
+    login,
   },
   Mutation: {
     signup,
-    login,
     addBlog,
     updateBlog,
     deleteBlog,

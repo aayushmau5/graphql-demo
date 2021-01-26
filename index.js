@@ -17,7 +17,7 @@ connection.on(
   console.error.bind(console, "Error occured connecting to the database")
 );
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ typeDefs, resolvers, debug: false });
 
 server.listen().then(({ url }) => {
   console.log(`Listening on ${url}`);
