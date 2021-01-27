@@ -25,9 +25,15 @@ exports.signup = async function (_, args) {
       password: hashedPassword,
     });
     const savedUser = await user.save();
+    const payload = {
+      id: savedUser._id,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
     return {
       user: savedUser,
-      token: "hellothere",
+      token,
     };
   } catch (err) {
     console.log(err);
@@ -48,9 +54,15 @@ exports.login = async function (_, args) {
     if (!result) {
       throw new UserInputError("Invalid username or password");
     }
+    const payload = {
+      id: user[0]._id,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
     return {
       user: user[0],
-      token: "8123jfj029",
+      token,
     };
   } catch (err) {
     return err;
