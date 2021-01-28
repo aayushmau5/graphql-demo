@@ -18,7 +18,8 @@ exports.addBlog = async function (_, args) {
     post,
     author: "get from token",
   });
-  return blog;
+  const savedBlog = await blog.save();
+  return savedBlog;
 };
 
 exports.deleteBlog = async function (_, args) {

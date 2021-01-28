@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   input Signup {
@@ -49,6 +49,7 @@ const typeDefs = gql`
     blogs: [Blog]!
     blog(id: ID!): Blog
     login(user: Login!): Token
+    Auth: String
   }
 
   type Mutation {
