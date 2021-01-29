@@ -1,6 +1,7 @@
 const UserController = require("../controllers/UserController");
+const authenticate = require("../utils/Auth");
 
-exports.users = UserController.users;
+exports.users = authenticate(UserController.users);
 
 exports.user = UserController.user;
 

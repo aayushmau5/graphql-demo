@@ -20,7 +20,18 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   debug: false,
-  context: ({ req, res }) => ({ req, res }),
+  context: ({ req, res }) => {
+    let token = "";
+    if (req.headers["authorization"]) {
+      const authHeader = req.headers["authorization"];
+      [_, token] = authHeader.split(" ");
+    }
+    return {
+      req,
+      res,
+      token,
+    };
+  },
 });
 
 server.listen().then(() => console.log(`Listening at http://localhost:4000`));
