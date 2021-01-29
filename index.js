@@ -2,7 +2,7 @@ const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const typeDefs = require("./schemas/Query");
+const typeDefs = require("./schemas/Schema");
 const resolvers = require("./resolvers/Resolvers");
 
 mongoose.connect(process.env.MONGODB_URL, {

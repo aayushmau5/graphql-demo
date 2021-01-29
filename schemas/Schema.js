@@ -43,7 +43,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    hello: String!
     users: [User]!
     user(id: ID!): User
     blogs: [Blog]!

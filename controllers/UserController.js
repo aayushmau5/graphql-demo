@@ -12,6 +12,9 @@ exports.users = async function () {
 exports.user = async function (_, args) {
   const { id } = args;
   const user = await User.find({ _id: id });
+  console.log(user[0]);
+  console.log(user[0].username);
+  console.log(user[0].createdAt);
   return user[0];
 };
 
