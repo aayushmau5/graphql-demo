@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/aayushmau5/graphql-prisma-fullstack#readme",
   "dependencies": {
-    "apollo-server-express": "^2.19.2",
+    "apollo-server": "^2.19.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
