@@ -5,16 +5,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 exports.users = async function () {
-  const allUsers = await User.find();
+  const allUsers = await User.find().populate("blogs");
+  console.log(allUsers);
   return allUsers;
 };
 
 exports.user = async function (_, args) {
   const { id } = args;
-  const user = await User.find({ _id: id });
-  console.log(user[0]);
-  console.log(user[0].username);
-  console.log(user[0].createdAt);
+  const user = await User.find({ _id: id }).populate("blogs");
   return user[0];
 };
 
