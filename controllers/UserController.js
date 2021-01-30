@@ -3,6 +3,10 @@ const { UserInputError } = require("apollo-server");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
+const {
+  validateLoginInput,
+  validateSignupInput,
+} = require("../utils/Validate");
 
 exports.users = async function () {
   const allUsers = await User.find().populate("blogs");
@@ -18,7 +22,7 @@ exports.user = async function (_, args) {
 
 exports.signup = async function (_, args) {
   try {
-    const { username, email, password } = args.user;
+    const { username, email, password } = validateSignupInput(args.user);
     const hashedPassword = await bcrypt.hash(password, 16);
     const user = new User({
       username,
@@ -46,7 +50,7 @@ exports.signup = async function (_, args) {
 
 exports.login = async function (_, args) {
   try {
-    const { email, password } = args.user;
+    const { email, password } = validateLoginInput(args.user);
     const user = await User.find({ email: email });
     if (!user[0]) {
       throw new UserInputError("Invalid username or password");
