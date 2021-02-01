@@ -3,5 +3,5 @@
 Trying out GraphQL with Apollo
 
 - Cursor based pagination
-- Input validation using joi (https://joi.dev/)
-- Controllers and validators modules
+- Adding blog along with user data and vice versa.
+- Updating and deleting blog with proper check

@@ -10,7 +10,6 @@ const {
 
 exports.users = async function () {
   const allUsers = await User.find().populate("blogs");
-  console.log(allUsers);
   return allUsers;
 };
 
@@ -41,17 +40,17 @@ exports.signup = async function (_, args) {
       token,
     };
   } catch (err) {
-    console.log(err);
     if (err.code === 11000) {
       throw new UserInputError("Email already registered");
     }
+    throw new Error("Something went wrong.");
   }
 };
 
 exports.login = async function (_, args) {
   try {
     const { email, password } = validateLoginInput(args.user);
-    const user = await User.find({ email: email });
+    const user = await User.find({ email: email }).populate("blogs");
     if (!user[0]) {
       throw new UserInputError("Invalid username or password");
     }
