@@ -1,6 +1,10 @@
+const { PubSub } = require("apollo-server");
+
 const { Blog } = require("../utils/DB");
 const isValidId = require("../utils/CheckId");
 const { validateBlogInput } = require("../utils/Validate");
+
+const pubsub = new PubSub();
 
 exports.blogs = async function () {
   return await Blog.getAllBlogs();
@@ -17,6 +21,7 @@ exports.addBlog = async function (_, args, { user }) {
   try {
     const blog = new Blog(title, post, user._id);
     const savedBlog = await blog.addBlog();
+    pubsub.publish("BLOG_ADDED", savedBlog);
     return savedBlog;
   } catch (err) {
     return err;
@@ -45,4 +50,9 @@ exports.deleteBlog = async function (_, args, { user }) {
   } catch (err) {
     return err;
   }
+};
+
+exports.blogAdded = {
+  subscribe: () => pubsub.asyncIterator("BLOG_ADDED"),
+  resolve: (payload) => payload,
 };

@@ -66,6 +66,10 @@ const typeDefs = gql`
     deleteBlog(id: ID!): Blog
     updateBlog(blog: UpdateBlog!): Blog
   }
+
+  type Subscription {
+    blogAdded: Blog
+  }
 `;
 
 module.exports = typeDefs;

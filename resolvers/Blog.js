@@ -10,3 +10,5 @@ exports.addBlog = authenticate(BlogController.addBlog);
 exports.deleteBlog = authenticate(BlogController.deleteBlog);
 
 exports.updateBlog = authenticate(BlogController.updateBlog);
+
+exports.blogAdded = BlogController.blogAdded;

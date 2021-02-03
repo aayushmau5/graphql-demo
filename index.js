@@ -22,7 +22,7 @@ const server = new ApolloServer({
   debug: false,
   context: ({ req, res }) => {
     let token = "";
-    if (req.headers["authorization"]) {
+    if (req && req.headers["authorization"]) {
       const authHeader = req.headers["authorization"];
       [_, token] = authHeader.split(" ");
     }

@@ -1,5 +1,12 @@
 const { users, user, signup, login } = require("./User");
-const { blogs, blog, addBlog, updateBlog, deleteBlog } = require("./Blog");
+const {
+  blogs,
+  blog,
+  addBlog,
+  updateBlog,
+  deleteBlog,
+  blogAdded,
+} = require("./Blog");
 
 const { Kind, GraphQLScalarType } = require("graphql");
 
@@ -35,5 +42,8 @@ module.exports = {
     addBlog,
     updateBlog,
     deleteBlog,
+  },
+  Subscription: {
+    blogAdded,
   },
 };
