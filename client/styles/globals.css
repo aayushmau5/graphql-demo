@@ -7,10 +7,16 @@ body {
 }
 
 a {
-  color: inherit;
+  color: rgb(78, 158, 190);
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.error {
+  color: rgb(206, 62, 62);
+  text-align: center;
 }
