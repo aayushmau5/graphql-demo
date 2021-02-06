@@ -1,0 +1,17 @@
+.navContainer {
+  display: flex;
+  font-size: 20px;
+  justify-content: space-around;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.link {
+  text-decoration: none;
+  color: gray;
+}
+
+.selected {
+  color: black;
+}
