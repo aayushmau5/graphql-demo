@@ -10,16 +10,28 @@ export default function Nav({ pageRoute, isAuthenticated }) {
           Home
         </a>
       </Link>
-      <Link href="/login">
-        <a className={pageRoute === "/login" ? styles.selected : styles.link}>
-          Login
-        </a>
-      </Link>
-      <Link href="/signup">
-        <a className={pageRoute === "/signup" ? styles.selected : styles.link}>
-          Signup
-        </a>
-      </Link>
+      {isAuthenticated ? (
+        <Link href="/user">
+          <a className={pageRoute === "/user" ? styles.selected : styles.link}>
+            User
+          </a>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <a className={pageRoute === "/login" ? styles.selected : styles.link}>
+            Login
+          </a>
+        </Link>
+      )}
+      {isAuthenticated ? null : (
+        <Link href="/signup">
+          <a
+            className={pageRoute === "/signup" ? styles.selected : styles.link}
+          >
+            Signup
+          </a>
+        </Link>
+      )}
     </div>
   );
 }
