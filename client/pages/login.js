@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 
 import styles from "../styles/Home.module.css";
@@ -33,7 +33,13 @@ export default function Login() {
 
   if (data) {
     console.log(data);
+    localStorage.setItem("userId", data.login.user._id);
+    localStorage.setItem("auth_token", data.login.token);
     if (typeof window !== "undefined") router.push("/");
+  }
+
+  if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {
+    router.push("/profile");
   }
 
   return (

@@ -11,9 +11,11 @@ export default function Nav({ pageRoute, isAuthenticated }) {
         </a>
       </Link>
       {isAuthenticated ? (
-        <Link href="/user">
-          <a className={pageRoute === "/user" ? styles.selected : styles.link}>
-            User
+        <Link href="/profile">
+          <a
+            className={pageRoute === "/profile" ? styles.selected : styles.link}
+          >
+            Profile
           </a>
         </Link>
       ) : (
@@ -23,6 +25,15 @@ export default function Nav({ pageRoute, isAuthenticated }) {
           </a>
         </Link>
       )}
+      {isAuthenticated ? (
+        <Link href="/publish">
+          <a
+            className={pageRoute === "/publish" ? styles.selected : styles.link}
+          >
+            Publish
+          </a>
+        </Link>
+      ) : null}
       {isAuthenticated ? null : (
         <Link href="/signup">
           <a
@@ -32,6 +43,18 @@ export default function Nav({ pageRoute, isAuthenticated }) {
           </a>
         </Link>
       )}
+      {isAuthenticated ? (
+        <Link href="/">
+          <a
+            onClick={() => {
+              localStorage.removeItem("userId");
+              localStorage.removeItem("auth_token");
+            }}
+          >
+            Logout
+          </a>
+        </Link>
+      ) : null}
     </div>
   );
 }

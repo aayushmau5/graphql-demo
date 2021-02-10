@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 
 const SIGNUP = gql`
-  mutation Signup($username: String!, $email: String!, $password: String!) {
+  mutation signup($username: String!, $email: String!, $password: String!) {
     signup(user: { username: $username, email: $email, password: $password }) {
       user {
         _id
@@ -38,7 +38,13 @@ export default function Signup() {
 
   if (data) {
     console.log(data);
+    localStorage.setItem("userId", data.signup.user._id);
+    localStorage.setItem("auth_token", data.signup.token);
     if (typeof window !== "undefined") router.push("/");
+  }
+
+  if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {
+    router.push("/profile");
   }
 
   return (
