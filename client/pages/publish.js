@@ -1,3 +1,3 @@
 export default function Publish() {
-  return <h1>Publish</h1>;
+  return <h1>Publish a blog</h1>;
 }

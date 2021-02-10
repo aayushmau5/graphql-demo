@@ -40,7 +40,7 @@ export default function Signup() {
     console.log(data);
     localStorage.setItem("userId", data.signup.user._id);
     localStorage.setItem("auth_token", data.signup.token);
-    if (typeof window !== "undefined") router.push("/");
+    router.push("/");
   }
 
   if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {

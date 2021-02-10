@@ -44,15 +44,8 @@ export default function Nav({ pageRoute, isAuthenticated }) {
         </Link>
       )}
       {isAuthenticated ? (
-        <Link href="/">
-          <a
-            onClick={() => {
-              localStorage.removeItem("userId");
-              localStorage.removeItem("auth_token");
-            }}
-          >
-            Logout
-          </a>
+        <Link href="/logout">
+          <a>Logout</a>
         </Link>
       ) : null}
     </div>
