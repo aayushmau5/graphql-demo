@@ -6,4 +6,12 @@ A blog site. Made for practicing GraphQL + NextJS concepts.
 
 **Backend:** Apollo-Server + MongoDB
 
-**NOTE:** Authentication is JWT based but right now, the client stores the token in a local storage, which I'm gonna fix soon and use cookies instead.
+Features:
+
+1. NextJS
+
+2. GraphQL with Apollo
+
+3. GraphQL Subscriptions
+
+**NOTE:** Authentication is JWT based but right now, the client stores the token in a local storage, which will be fixed soon and will use cookies instead.

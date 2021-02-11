@@ -18,13 +18,14 @@ export default function Nav({ pageRoute, isAuthenticated }) {
             Profile
           </a>
         </Link>
-      ) : (
+      ) : null}
+      {!isAuthenticated ? (
         <Link href="/login">
           <a className={pageRoute === "/login" ? styles.selected : styles.link}>
             Login
           </a>
         </Link>
-      )}
+      ) : null}
       {isAuthenticated ? (
         <Link href="/publish">
           <a
@@ -45,7 +46,7 @@ export default function Nav({ pageRoute, isAuthenticated }) {
       )}
       {isAuthenticated ? (
         <Link href="/logout">
-          <a>Logout</a>
+          <a className={styles.link}>Logout</a>
         </Link>
       ) : null}
     </div>

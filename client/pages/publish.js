@@ -25,7 +25,9 @@ export default function Publish() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [error, setError] = useState("");
-  const onSubmit = () => {
+
+  const onSubmit = (e) => {
+    e.preventDefault();
     setError("");
     publish({ variables: { title, post } })
       .then((data) => {
@@ -46,6 +48,9 @@ export default function Publish() {
 
   return (
     <div>
+      <Head>
+        <title>Publish a blog</title>
+      </Head>
       {loading && <h1>Submitting...</h1>}
       {error !== "" ? <h1>{error}</h1> : null}
       <form onSubmit={onSubmit}>

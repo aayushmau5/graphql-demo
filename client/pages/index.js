@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { gql, useQuery } from "@apollo/client";
 import { initializeApollo } from "../lib/apolloClient";
+import { useEffect } from "react";
 
 const GetBlogs = gql`
   query allBlogs {
@@ -20,13 +21,41 @@ const GetBlogs = gql`
   }
 `;
 
+const BLOGS_SUBSCRIPTION = gql`
+  subscription getAllBlogs {
+    blogAdded {
+      _id
+      title
+      post
+      createdAt
+      author {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
+
 export default function Home() {
   // client side data fetching
-  const { loading, error, data } = useQuery(GetBlogs); //will get the data from cache
+  const { loading, error, data, subscribeToMore } = useQuery(GetBlogs); //will get the data from cache
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
+  useEffect(() => {
+    subscribeToMore({
+      document: BLOGS_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newFeedItem = subscriptionData.data.blogAdded;
+        return Object.assign({}, prev, {
+          blogs: [...prev.blogs, newFeedItem],
+        });
+      },
+    });
+  }, []);
 
   return (
     <div className={styles.container}>
