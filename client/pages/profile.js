@@ -1,7 +1,7 @@
 import Head from "next/head";
-import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 import Link from "next/link";
 import { useState } from "react";
+import { gql, useQuery, useMutation, useApolloClient } from "@apollo/client";
 
 const GET_SPECIFIC_USER = gql`
   query getUser($id: ID!) {
