@@ -14,4 +14,6 @@ Features:
 
 3. GraphQL Subscriptions
 
-**NOTE:** Authentication is JWT based but right now, the client stores the token in a local storage, which will be fixed soon and will use cookies instead.
+This branch is for **cookie** based authentication.
+
+Using Refresh token + Access Token
