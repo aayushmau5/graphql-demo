@@ -6,7 +6,10 @@ import { useMemo } from "react";
 
 let apolloClient;
 
-const httpLink = new HttpLink({ uri: "http://localhost:4000/" });
+const httpLink = new HttpLink({
+  uri: "http://localhost:4000/",
+  credentials: "include",
+});
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -18,7 +21,6 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });

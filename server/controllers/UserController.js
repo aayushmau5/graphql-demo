@@ -26,12 +26,29 @@ exports.signup = async function (_, args) {
     const payload = {
       id: savedUser._id,
     };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "15min",
     });
+
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.cookie("access-token", accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 15,
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    res.cookie("refresh-token", refreshToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: process.env.NODE_ENV === "production",
+    });
+
     return {
       user: savedUser,
-      token,
     };
   } catch (err) {
     if (err.code === 11000) {
@@ -41,19 +58,35 @@ exports.signup = async function (_, args) {
   }
 };
 
-exports.login = async function (_, args) {
+exports.login = async function (_, args, { res }) {
   try {
     const { email, password } = validateLoginInput(args.user);
     const user = await User.login(email, password);
     const payload = {
       id: user._id,
     };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "15min",
     });
+
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.cookie("access-token", accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 15, // 15 Minutes
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    res.cookie("refresh-token", refreshToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 Days
+      secure: process.env.NODE_ENV === "production",
+    });
+
     return {
       user: user,
-      token,
     };
   } catch (err) {
     return err;
