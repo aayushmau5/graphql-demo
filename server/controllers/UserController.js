@@ -92,3 +92,9 @@ exports.login = async function (_, args, { res }) {
     return err;
   }
 };
+
+exports.logout = async function (_, __, { res }) {
+  res.clearCookie("access-token");
+  res.clearCookie("refresh-token");
+  return true;
+};

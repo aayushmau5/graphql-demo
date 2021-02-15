@@ -58,6 +58,8 @@ const typeDefs = gql`
     blogs: [Blog]!
     blog(id: ID!): Blog
     login(user: Login!): Token
+    me: User
+    logout: Boolean
   }
 
   type Mutation {

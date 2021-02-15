@@ -1,5 +1,6 @@
 const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
+const { parse } = require("cookie");
 require("dotenv").config();
 
 const typeDefs = require("./schemas/Schema");
@@ -21,9 +22,11 @@ const server = new ApolloServer({
   resolvers,
   debug: false,
   context: ({ req, res }) => {
+    const cookies = parse(req.headers.cookie || "");
     return {
       req,
       res,
+      cookies,
     };
   },
 });
