@@ -77,6 +77,7 @@ exports.login = async function (_, args, { res }) {
       httpOnly: true,
       maxAge: 1000 * 60 * 15, // 15 Minutes
       secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
     });
 
     res.cookie("refresh-token", refreshToken, {

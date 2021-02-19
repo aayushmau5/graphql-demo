@@ -12,7 +12,6 @@ const LOGIN = gql`
         username
         email
       }
-      token
     }
   }
 `;
@@ -33,13 +32,7 @@ export default function Login() {
 
   if (data) {
     console.log(data);
-    localStorage.setItem("userId", data.login.user._id);
-    localStorage.setItem("auth_token", data.login.token);
     if (typeof window !== "undefined") router.push("/");
-  }
-
-  if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {
-    router.push("/profile");
   }
 
   return (

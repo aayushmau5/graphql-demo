@@ -11,22 +11,6 @@ const httpLink = new HttpLink({
   credentials: "include",
 });
 
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  let token;
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("auth_token");
-  }
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-    },
-  };
-});
-
-const defaultLink = authLink.concat(httpLink);
-
 const wsLink = process.browser
   ? new WebSocketLink({
       // if you instantiate in the server, the error will be thrown
@@ -51,9 +35,9 @@ const link = process.browser
         return kind === "OperationDefinition" && operation === "subscription";
       },
       wsLink,
-      defaultLink
+      httpLink
     )
-  : defaultLink;
+  : httpLink;
 
 function createApolloClient() {
   // if "typeof window" is "undefined", then we are in server, so use SSR mode

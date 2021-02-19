@@ -29,6 +29,10 @@ const server = new ApolloServer({
       cookies,
     };
   },
+  cors: {
+    credentials: true,
+    origin: "http://localhost:3000",
+  },
 });
 
 server.listen().then(() => console.log(`Listening at http://localhost:4000`));

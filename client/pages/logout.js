@@ -1,18 +1,28 @@
 import { useRouter } from "next/router";
-import { useApolloClient } from "@apollo/client";
+import { useApolloClient, useQuery, gql } from "@apollo/client";
 import { useEffect } from "react";
+
+const LOGOUT = gql`
+  query logout {
+    logout
+  }
+`;
 
 export default function logout() {
   const router = useRouter();
   const client = useApolloClient();
 
+  const { loading, data, error } = useQuery(LOGOUT);
+
   useEffect(() => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("auth_token");
-    client.resetStore().then(() => {
-      router.push("/");
-    }, [router, client]);
-  });
+    if (data) {
+      client.resetStore().then(() => {
+        router.push("/");
+      });
+    } else {
+      router.push("/profile");
+    }
+  }, [router, client, data]);
 
   return <h1>Loggin out...</h1>;
 }
