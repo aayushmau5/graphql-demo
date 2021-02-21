@@ -29,7 +29,6 @@ export default function specificBlog() {
 
   if (loading) return <h1>Loading...</h1>;
   if (error) {
-    console.log(error);
     return <h3 className="error">Error Occured</h3>;
   }
 

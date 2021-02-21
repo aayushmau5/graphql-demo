@@ -15,14 +15,20 @@ export default function logout() {
   const { loading, data, error } = useQuery(LOGOUT);
 
   useEffect(() => {
+    console.log(data);
     if (data) {
-      client.resetStore().then(() => {
-        router.push("/");
-      });
-    } else {
-      router.push("/profile");
+      client
+        .clearStore()
+        .then(() => {
+          router.push("/");
+        })
+        .catch((err) => console.log(err));
     }
-  }, [router, client, data]);
+    if (error) {
+      console.log(error.message);
+    }
+    router.push("/");
+  }, [router, client, data, error]);
 
-  return <h1>Loggin out...</h1>;
+  return <h1>Logging out...</h1>;
 }

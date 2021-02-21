@@ -26,7 +26,6 @@ const authenticate = (next) => async (parent, args, context, info) => {
         refreshToken,
         process.env.JWT_SECRET
       );
-      console.log("rt function ran");
       const user = await User.find({ _id: refreshTokenId });
       if (!user) {
         throw new AuthenticationError("Unauthenticated");

@@ -25,18 +25,17 @@ const DELETE_BLOG = gql`
   }
 `;
 
-export default function profile() {
+export default function profile({ isAuthenticated }) {
   const client = useApolloClient();
   let loggedinUserId;
-  let authToken;
   const [deleteError, setDeleteError] = useState("");
-  if (typeof window !== "undefined") {
-    loggedinUserId = localStorage.getItem("userId");
-    authToken = localStorage.getItem("auth_token");
+
+  if (!isAuthenticated) {
+    return <h1>Unauthorized</h1>;
   }
 
-  if (!loggedinUserId && !authToken && typeof window !== "undefined") {
-    return <h1>Unauthorized</h1>;
+  if (typeof window !== "undefined" && isAuthenticated) {
+    loggedinUserId = localStorage.getItem("userId");
   }
 
   const { loading, error, data } = useQuery(GET_SPECIFIC_USER, {

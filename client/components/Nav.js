@@ -1,9 +1,37 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 
 import styles from "../styles/Nav.module.css";
 
-export default function Nav({ pageRoute, isAuthenticated }) {
-  console.log(isAuthenticated);
+const ME = gql`
+  query Me {
+    me {
+      _id
+      email
+    }
+  }
+`;
+
+export default function Nav({ pageRoute, changeAuthState, isAuthenticated }) {
+  const changeState = (value) => {
+    changeAuthState(value);
+  };
+
+  const [queryMe] = useLazyQuery(ME, {
+    fetchPolicy: "network-only",
+    onError: () => {
+      changeState(false);
+    },
+    onCompleted: () => {
+      changeState(true);
+    },
+  });
+
+  useEffect(() => {
+    queryMe();
+  }, [pageRoute]);
+
   return (
     <div className={styles.navContainer}>
       <Link href="/">

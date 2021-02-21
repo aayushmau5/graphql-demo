@@ -17,7 +17,7 @@ const SIGNUP = gql`
   }
 `;
 
-export default function Signup() {
+export default function Signup({ isAuthenticated }) {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -37,13 +37,11 @@ export default function Signup() {
   if (loading) return <h1>Signing Up...</h1>;
 
   if (data) {
-    console.log(data);
     localStorage.setItem("userId", data.signup.user._id);
-    localStorage.setItem("auth_token", data.signup.token);
     router.push("/");
   }
 
-  if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {
+  if (typeof window !== "undefined" && isAuthenticated) {
     router.push("/profile");
   }
 

@@ -16,7 +16,7 @@ const LOGIN = gql`
   }
 `;
 
-export default function Login() {
+export default function Login({ isAutheticated = false, changeState }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +31,11 @@ export default function Login() {
   if (loading) return <h1>Logging In...</h1>;
 
   if (data) {
-    console.log(data);
+    localStorage.setItem("userId", data.login.user._id);
+    if (typeof window !== "undefined") router.push("/profile");
+  }
+
+  if (isAutheticated) {
     if (typeof window !== "undefined") router.push("/");
   }
 

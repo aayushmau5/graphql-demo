@@ -13,12 +13,11 @@ const PUBLISH_BLOG = gql`
   }
 `;
 
-export default function Publish() {
+export default function Publish({ isAuthenticated }) {
   const router = useRouter();
   const client = useApolloClient();
 
   let loggedinUserId;
-  let authToken;
 
   const [publish, { loading }] = useMutation(PUBLISH_BLOG);
 
@@ -37,12 +36,11 @@ export default function Publish() {
       .catch((error) => setError(error.message));
   };
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && isAuthenticated) {
     loggedinUserId = localStorage.getItem("userId");
-    authToken = localStorage.getItem("auth_token");
   }
 
-  if (!loggedinUserId && !authToken && typeof window !== "undefined") {
+  if (!isAuthenticated) {
     return <h1>Unauthorized</h1>;
   }
 
